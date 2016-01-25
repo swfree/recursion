@@ -4,7 +4,16 @@
 // };
 
 // But instead we're going to implement it from scratch:
-var getElementsByClassName = function(className
-){
-  // your code here
+var getElementsByClassName = function(className){
+  
+  var finalArray = [document.body];
+  var childElements = document.body.children;
+
+  for (var i = 0; i < childElements.length; i++){
+    if(childElements[i].className === 'targetClassName'){
+      finalArray.push(childElements[i]);
+    }
+  }
+  return finalArray;
+
 };
