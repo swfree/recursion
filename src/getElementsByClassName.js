@@ -4,16 +4,22 @@
 // };
 
 // But instead we're going to implement it from scratch:
-var getElementsByClassName = function(className){
+var getElementsByClassName = function(className) {
   
-  var finalArray = [document.body];
-  var childElements = document.body.children;
+  var finalArray = [];
 
-  for (var i = 0; i < childElements.length; i++){
-    if(childElements[i].className === 'targetClassName'){
-      finalArray.push(childElements[i]);
-    }
-  }
+  // use Crockford's walkTheDOM
+  var walkTheDOM = function(node) {
+      if (node.classList && node.classList.contains(className)) {
+          finalArray.push(node);
+      }
+      node = node.firstChild;
+      while (node) {
+          walkTheDOM(node);
+          node = node.nextSibling;
+      }
+  };
+
+  walkTheDOM(document.body);
   return finalArray;
-
 };
